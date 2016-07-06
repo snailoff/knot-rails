@@ -1,0 +1,44 @@
+// Place all the styles related to the Knots controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.knot {
+	h1, h2, h3, h4, h5 {
+		color: #000;
+		margin-top: 0px;
+	}
+
+	
+	background-color: #fff;
+	/*border-radius: 6px;*/
+	min-height: 500px;
+	
+	font-size: 1em;
+	color: #333;
+
+	.datetime {
+		margin-top: 20px;
+		color: #999;
+		font-size: .8em;
+		font-weight: bold;
+	}
+	
+	.up {
+		background-color: #AAA;
+		color: #FFF;
+		padding: 1px;
+		border-radius: 3px;
+		a:link, a:visited {
+			color:white;
+		}
+	}
+
+	.ring {
+		font-weight: bold;
+	}
+
+	blockquote {
+		font-size: 1em;
+	}
+}
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>knot</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+
+<body>
+<!--   <div class="logo">
+    <h3 class="title"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> <%= link_to '暗雲', root_path %></h3>
+  </div>
+ -->
+  <div class="container2">
+
+      <!-- <div class="header clearfix">
+      </div> -->
+
+      <%= yield %>
+
+      <hr>
+
+      <footer class="footer">
+        <p>&copy; trunkcat.com 2015</p>
+        <p><i>powered by <%= link_to 'knot', root_path %></i></p>
+        <p class="text-right">
+          <% if isLogined %> 
+          <strong><%= current_user.user %></strong> 
+          <a href="/sessions/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+          <% end %>
+        </p>      
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+    <%= link_to '', root_path, data: { keybinding: 'ctrl+m' } %>
+    
+    <% if isLogined  %>
+    <%= link_to '', new_knot_path, data: { keybinding: 'ctrl+n' } %>
+    <%= link_to '', sessions_logout_path, data: { keybinding: 'ctrl+l ctrl+o' } %>
+    <% end %>
+    <% if !isLogined  %>
+    <%= link_to '', sessions_login_path, data: { keybinding: 'ctrl+l ctrl+i' } %>
+    <% end %>
+
+
+
+    
+    
+</body>
+</html>

@@ -1,0 +1,51 @@
+<div class="knot">
+	<small><% if @knot.linked_from.any? %><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><% end %> 
+	  	<% @knot.linked_from.each do |k| %><span class="ring"><%= link_to k.name, knot_path(k) %></span>. <% end %></small>
+	<h1><%= @knot.name %></h1>
+
+	<br />
+
+	<p><%= markdown(@knot.content).html_safe %></p>
+
+	<p class="text-right">
+		<% @knot.linked_to.each do |k| %>
+		<span class="ring"><%= link_to k.name, knot_path(k) %></span> <span class="datetime"><%= zeroToO(k.created_at) %></span><br />
+	    <% end %>
+	</p>
+
+	
+	<p class="datetime text-left"><big><%= zeroToO(@knot.created_at) %></big></p>
+
+	<% if isLogined  %>
+	<%= link_to '', edit_knot_path(@knot), data: { keybinding: 'ctrl+e' } %>
+
+	<%= form_for @attatch, url: knot_fileupload_path(@knot), html: { multipart: true } do |form| %>
+	  <%= form.file_field :files, multiple: true %>
+	  <a href="#" class="fileupload"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+	<% end %>
+
+
+	<script>
+	$('.fileupload').click(function(){
+		$('input[type=file]').click();	
+	});
+
+	$('input[type=file]').change(function(){
+		$(this).parent('form').submit();
+	}).css('display', 'none');
+	</script>
+	
+	<ul>
+	<% @uploadeds.each do |uploaded| %>
+		<li><small>@img <%= uploaded.file.path(:medium).gsub(/.*\//, '') %>@</small></li>
+	<% end %>
+	</ul>
+
+	<% end %>
+
+</div>
+
+
+
+
+

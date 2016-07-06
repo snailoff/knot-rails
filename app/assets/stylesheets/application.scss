@@ -1,0 +1,55 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'knots';
+@import 'sessions';
+
+
+@media (min-width: 768px) {
+  .logo, .container {
+    max-width: 530px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.container2 {
+	width: 500px;
+	background-color: #fff;
+	margin: 0 auto;
+	padding: 10px;
+	/*margin-top: 0;
+	padding-bottom: 0px;
+	*/
+}
+html {
+	height:100%;
+}
+body { 
+	height:100%;
+	/*
+	background: url(/system/attatches/files/000/000/009/original/road.JPG) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+*/
+	background-color: #000;
+	color: #aaa;
+	/*padding:10px;*/
+}
+
+img {
+	padding: 0px;
+	border-radius: 0px;
+}
+
+
+.modal .modal-body {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.fileupload {
+	font-size: 2em;
+}

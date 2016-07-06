@@ -1,0 +1,19 @@
+<div class="knot">
+    <% @knots.each do |knot| %>
+        <span class="ring"><%= link_to knot.name, knot %></span>.
+<!-- 
+            <p class="text-right">
+                <small>
+                <% knot.linked_from.each do |p| %>
+                <span class="up"><%= link_to p.name, knot_path(p) %></span>
+                <% end %>
+                </small>
+                <span class="ring"><%= link_to knot.name, knot %></span>
+
+                <span class="datetime"><%= zeroToO(knot.created_at) %></span>
+            </p>
+ -->     
+    <% end %>
+
+
+</div>
