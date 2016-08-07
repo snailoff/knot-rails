@@ -109,35 +109,133 @@ class KnotsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_knot
-      @knot = Knot.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def knot_params
-      params.require(:knot).permit(:name, :content, :knots)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_knot
+    @knot = Knot.find(params[:id])
+  end
 
-    def login_check
-      if !isLogined()
-        raise "session error"
-      end
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def knot_params
+    params.require(:knot).permit(:name, :content, :knots)
+  end
 
-    def attatch_params
-      params.require(:attatch).permit(:file)
+  def login_check
+    if !isLogined()
+      raise "session error"
     end
+  end
 
-    def parse(content)
-      content.gsub(/@img .*?@/) { |match|
-        name = match.gsub(/@img (.*?)@/, '\1') 
-        att = Attatch.where(file_file_name:name.gsub(/@img (.*?)@/, "\1"))
-        begin
-          "<img src=\"#{att[0].file.url(:medium)}\" />"
-        rescue
-          match
+  def attatch_params
+    params.require(:attatch).permit(:file)
+  end
+
+
+  # def parse(content)
+  #   content.gsub(/@img .*?@/) { |match|
+  #     name = match.gsub(/@img (.*?)@/, '\1') 
+  #     att = Attatch.where(file_file_name:name.gsub(/@img (.*?)@/, "\1"))
+  #     begin
+  #       "<img src=\"#{att[0].file.url(:medium)}\" />"
+  #     rescue
+  #       match
+  #     end
+  #   }
+  # end
+
+  def parse(content)
+    parsed = ''
+    isNoneBreakBlock = false
+    isCodeBlock = false
+    codeBlockContent = ''
+    codeBlockName = ''
+
+    content.split(/\n/).each do |line|
+      line.gsub! /\s+$/, ''
+
+      if isCodeBlock 
+        if line =~ /^```(.*)?$/
+          lexer = Rouge::Lexer.find codeBlockName
+          if lexer 
+            source = codeBlockContent
+            formatter = Rouge::Formatters::HTML.new(css_class: 'highlight')
+            parsed += formatter.format(lexer.lex(source))
+          else
+            parsed += '<div class="codeblock"><pre>' + "\n\n"
+            parsed += codeBlockContent
+            parsed += '</pre></div>'
+          end
+
+          isCodeBlock = false
+          codeBlockContent = ''
+          codeBlockName = ''
+          next
+        else
+          codeBlockContent += line + "\n"
+          next
         end
-      }
+      else
+        if line =~ /^```(.*)?$/
+          codeBlockName = $1
+          isCodeBlock = true
+          next
+        end
+      end
+
+      line.strip!
+
+      if line =~ /^"""/
+        isNoneBreakBlock = isNoneBreakBlock ? false : true
+        next
+      end
+
+      if line =~ /^---/
+        parsed += "<hr />"
+        next
+      end
+        
+      if line =~ /^(\={1,5})(.*)$/
+        parsed += "<h#{$1.to_s.length}>#{$2}</h#{$1.to_s.length}>"
+        next
+      end
+
+      if /``(?<code>.*?)``/ =~ line
+        line = "#{special($`)}<span class=\"codeline\">#{safeHtml(code)}</span>#{special($')}"
+        line += "<br />" unless isNoneBreakBlock
+        parsed += line + "\n"
+        next
+      end
+
+      if line =~ /@img (.*?)@/
+        att = Attatch.where(file_file_name:"#{$1}")
+        begin
+          parsed += "<img src=\"#{att[0].file.url(:medium)}\" />"
+        rescue
+          parsed += "no file."
+        end
+        next
+      end
+
+      special line
+
+      if line =~ /\(\((?:(.*?)(?: (.*?))?)\)\)/
+        rs = Extension.new(@config).build($1, $2)
+        line.gsub! $&, rs
+      end
+
+      line += "<br />" unless isNoneBreakBlock
+
+      parsed += line + "\n"
     end
+
+    parsed
+  end 
+
+  def special str
+    str.gsub! /''(.*?)''/, "<strong>\\1</strong>"
+    str.gsub! /__(.*?)__/, "<u>\\1</u>"
+    str.gsub! /\/\/(.*?)\/\//, "<i>\\1</i>" 
+    str.gsub! /~~(.*?)~~/, "<del>\\1</del>"
+    str
+  end
 end

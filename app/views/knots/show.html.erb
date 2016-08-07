@@ -5,7 +5,7 @@
 
 	<br />
 
-	<p><%= markdown(@knot.content).html_safe %></p>
+	<p><%= @knot.content.html_safe %></p>
 
 	<p class="text-right">
 		<% @knot.linked_to.each do |k| %>
