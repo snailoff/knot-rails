@@ -51,6 +51,9 @@ class KnotsController < ApplicationController
   # POST /knots.json
   def create
     @knot = Knot.new(knot_params)
+    if @knot.name.blank?
+      @knot.name = Time.now.strftime("%Y%m%d%H%M%S").gsub(/0/, 'o')
+    end 
 
     respond_to do |format|
       if updateRelation(knot_params) && @knot.save

@@ -7,9 +7,4 @@ module KnotsHelper
 		end
 		r.join(", ")
 	end
-
-	def markdown(content)
-		maruku = Maruku.new(content)
-		maruku.to_html
-	end
 end

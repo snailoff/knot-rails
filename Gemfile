@@ -39,7 +39,6 @@ gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'simple_form', '~> 3.2.0'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'maruku'
 gem 'mousetrap-rails'
 gem 'bcrypt', '~> 3.1.10'
 gem "paperclip", "~> 4.3"
