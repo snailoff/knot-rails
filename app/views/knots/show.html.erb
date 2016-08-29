@@ -1,7 +1,9 @@
 <div class="knot">
-	<small><% if @knot.linked_from.any? %><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><% end %> 
-	  	<% @knot.linked_from.each do |k| %><span class="ring"><%= link_to k.name, knot_path(k) %></span>. <% end %></small>
-	<h1><%= @knot.name %></h1>
+	
+	<h5 class="ring">
+		<small><% @knot.linked_from.each do |k| %><span class="ring"><%= link_to k.name, knot_path(k) %></span>. <% end %></small>
+		<%= @knot.name %>
+	</h5>
 
 	<br />
 
@@ -14,7 +16,7 @@
 	</p>
 
 	
-	<p class="datetime text-left"><big><%= zeroToO(@knot.created_at) %></big></p>
+	<p class="datetime"><%= zeroToO(@knot.created_at) %></p>
 
 	<% if isLogined  %>
 	<%= link_to '', edit_knot_path(@knot), data: { keybinding: 'ctrl+e' } %>
@@ -35,6 +37,8 @@
 	}).css('display', 'none');
 	</script>
 	
+	<hr />
+
 	<ul>
 	<% @uploadeds.each do |uploaded| %>
 		<li><small>@img <%= uploaded.file.path(:medium).gsub(/.*\//, '') %>@</small></li>

@@ -8,6 +8,6 @@ module ApplicationHelper
 	end
 	
 	def zeroToO(datetime) 
-		datetime.to_s.gsub(/0/, "o")
+		datetime.to_s.gsub(/[^0-9]/, "").gsub(/0/, "o")
 	end
 end

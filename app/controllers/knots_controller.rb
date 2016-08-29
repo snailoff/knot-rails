@@ -20,9 +20,6 @@ class KnotsController < ApplicationController
     for a in @uploadeds
       print "uploaded: ", a.file.url(:mediam)
     end
-
-
-
   end
 
 
@@ -129,19 +126,6 @@ class KnotsController < ApplicationController
   def attatch_params
     params.require(:attatch).permit(:file)
   end
-
-
-  # def parse(content)
-  #   content.gsub(/@img .*?@/) { |match|
-  #     name = match.gsub(/@img (.*?)@/, '\1') 
-  #     att = Attatch.where(file_file_name:name.gsub(/@img (.*?)@/, "\1"))
-  #     begin
-  #       "<img src=\"#{att[0].file.url(:medium)}\" />"
-  #     rescue
-  #       match
-  #     end
-  #   }
-  # end
 
   def parse(content)
     parsed = ''

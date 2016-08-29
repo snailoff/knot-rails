@@ -3,24 +3,22 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .knot {
+	background-color: #000; 
+	color: #bbb;
+	min-height: 500px;
+
 	h1, h2, h3, h4, h5 {
-		color: #000;
+		color: red;
 		margin-top: 0px;
 	}
 
-	
-	background-color: #fff;
-	/*border-radius: 6px;*/
-	min-height: 500px;
-	
-	font-size: 1em;
-	color: #333;
+	.ring { color:red;  }
 
 	.datetime {
 		margin-top: 20px;
-		color: #999;
-		font-size: .8em;
-		font-weight: bold;
+		color: #777;
+		font-size: 0.9em;
+		font-weight: none;
 	}
 	
 	.up {
@@ -31,10 +29,6 @@
 		a:link, a:visited {
 			color:white;
 		}
-	}
-
-	.ring {
-		font-weight: bold;
 	}
 
 	blockquote {

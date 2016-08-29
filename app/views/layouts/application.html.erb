@@ -9,7 +9,12 @@
 </head>
 
 <body>
+  
+
   <div class="container">
+    <div class="logo">
+      <h3 class="title"><span style="font-size:50pt"><%= link_to 'M@', root_path %></span></h3>
+    </div>
 
       <!-- <div class="header clearfix">
       </div> -->
@@ -19,8 +24,8 @@
       <hr>
 
       <footer class="footer">
-        <p>&copy; trunkcat.com 2015</p>
-        <p><i>powered by <%= link_to 'knot', root_path %></i></p>
+        <p>&copy;trunkcat.com 2015 <i>powered by <%= link_to 'knot', root_path %></i></p>
+        <p></p>
         <p class="text-right">
           <% if isLogined %> 
           <strong><%= current_user.user %></strong> 

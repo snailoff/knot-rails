@@ -1,13 +1,13 @@
 <%= simple_form_for(@knot) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <div>
     <%= f.input :name  %>
     <%= f.input :content, :as => "text", input_html: { rows: 15 } %>
     <%= f.input :knots, input_html: { value: knots_s(@knot) } %>
   </div>
 
-  <div class="form-actions">
+  <div>
     <%= f.button :submit %>	
   </div>
 <% end %>
